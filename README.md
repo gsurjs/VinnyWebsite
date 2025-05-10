@@ -1,6 +1,6 @@
 # Clean Simplistic Website for Vinny Virtuoso
 
-A clean, minimalist website for [Artist Name] inspired by the Yeezysupply aesthetic.
+A clean, minimalist website for Vinny Virtuoso to display his media, art, and tour info.
 
 ## Features
 
