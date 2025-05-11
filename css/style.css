@@ -113,6 +113,13 @@ body {
     letter-spacing: 0.5rem;
     text-transform: uppercase;
     opacity: 0.8;
+    width: 100%;
+}
+
+/* Latest Releases Section */
+.releases-section {
+    width: 100%;
+    margin-top: 2rem;
 }
 
 /* Music page */
@@ -121,7 +128,7 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 3rem;
     width: 100%;
-    padding: 2rem;
+    padding: 0 2rem;
 }
 
 .album {
