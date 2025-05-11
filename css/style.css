@@ -482,6 +482,10 @@ button:hover {
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;      /* Center all children */
+        text-align: center;       /* Center text elements */
         min-height: 100vh;
     }
     
@@ -489,6 +493,17 @@ button:hover {
         font-size: 2rem;
         margin-bottom: 2rem;
         letter-spacing: 0.3rem;
+        text-align: center;       /* Center the text */
+        width: 100%;              /* Full width */
+        margin-left: auto;        /* Auto margins for centering */
+        margin-right: auto;       /* Auto margins for centering */
+        display: block;           /* Block display for proper centering */
+    }
+    /* Ensure the logo's pseudo-element (gradient line) is also centered */
+    .logo::after {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;               /* Make it slightly smaller than full width */
     }
     
     .nav {
@@ -606,6 +621,10 @@ button:hover {
     .logo {
         font-size: 1.6rem;
         margin-bottom: 1.5rem;
+        text-align: center;
+        width: 100%; 
+        margin-left: auto;
+        margin-right: auto; 
     }
     
     .nav-item {
