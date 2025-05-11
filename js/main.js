@@ -8,12 +8,43 @@ const SOCIAL_LINKS = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    // UPDATE SOCIAL LINKS - This was missing!
+    // UPDATE SOCIAL LINKS
     updateSocialLinks();
     
     // Navigation handling
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.page-content');
+    
+    // Function to show specific page
+    function showPage(pageId) {
+        // Update active navigation item
+        navItems.forEach(navItem => {
+            if (navItem.getAttribute('data-page') === pageId) {
+                navItem.style.opacity = '1';
+            } else {
+                navItem.style.opacity = '0.7';
+            }
+        });
+        
+        // Hide all pages
+        pages.forEach(page => {
+            page.classList.remove('active');
+        });
+        
+        // Show selected page
+        const targetPage = document.getElementById(pageId);
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+    }
+    
+    // Check URL hash on load
+    const initialHash = window.location.hash.substring(1);
+    if (initialHash && document.getElementById(initialHash)) {
+        showPage(initialHash);
+    } else {
+        showPage('home'); // Default to home if no hash
+    }
     
     navItems.forEach(item => {
         item.addEventListener('click', function(e) {
@@ -22,19 +53,20 @@ document.addEventListener('DOMContentLoaded', function() {
             // Get page to show
             const pageId = this.getAttribute('data-page');
             
-            // Update active navigation item
-            navItems.forEach(navItem => {
-                navItem.style.opacity = navItem === this ? '1' : '0.7';
-            });
+            // Update URL hash
+            window.location.hash = pageId;
             
-            // Hide all pages
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
+            // Show the page
+            showPage(pageId);
         });
+    });
+    
+    // Handle browser back/forward buttons
+    window.addEventListener('hashchange', function() {
+        const hash = window.location.hash.substring(1);
+        if (hash && document.getElementById(hash)) {
+            showPage(hash);
+        }
     });
     
     // Add subtle hover effects
