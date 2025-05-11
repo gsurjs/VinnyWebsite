@@ -259,15 +259,36 @@ function initializeImageGallery() {
         });
     });
     
+    // Handle image loading and errors
+    const images = document.querySelectorAll('img');
+    images.forEach(img => {
+        // Add error handling
+        img.addEventListener('error', function() {
+            console.error(`Failed to load image: ${this.src}`);
+            this.classList.add('error');
+            
+            // For album covers, show the alt text
+            if (this.classList.contains('album-cover')) {
+                // Keep the original alt text visible
+            }
+        });
+        
+        // Add loaded class when image loads successfully
+        img.addEventListener('load', function() {
+            this.classList.add('loaded');
+        });
+    });
+    
     // Add lazy loading for images
     if ('IntersectionObserver' in window) {
-        const images = document.querySelectorAll('img');
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    img.src = img.src;
-                    img.classList.add('loaded');
+                    // Only reload if it hasn't been loaded yet
+                    if (!img.classList.contains('loaded') && !img.classList.contains('error')) {
+                        img.src = img.src;
+                    }
                     imageObserver.unobserve(img);
                 }
             });
