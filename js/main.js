@@ -202,6 +202,7 @@ function updateSocialLinks() {
     });
 }
 
+
 function initializeMusicPreviews() {
     const audioElements = document.querySelectorAll('audio');
     
@@ -217,9 +218,40 @@ function initializeMusicPreviews() {
                 source.src = trackInfo.url;
             });
             
+            // Force the audio element to load the new sources
+            audio.load();
+            
+            // Add click handler to ensure first click works
+            const audioContainer = audio.closest('.album-player');
+            if (audioContainer) {
+                audioContainer.addEventListener('click', function(e) {
+                    // Only handle clicks on the player itself, not child elements
+                    if (e.target === audio || audio.contains(e.target)) {
+                        // If audio is not ready, load it
+                        if (audio.readyState === 0) {
+                            audio.load();
+                            // Small timeout to let browser process
+                            setTimeout(() => {
+                                audio.play().catch(err => {
+                                    console.error('Error playing audio:', err);
+                                });
+                            }, 50);
+                        }
+                    }
+                }, true); // Use capture phase to get events first
+            }
+            
             // Add error handling
             audio.addEventListener('error', function(e) {
                 console.error(`Error loading audio for track ${trackId}:`, e);
+                
+                // Try to reload on error
+                audio.load();
+            });
+            
+            // Add canplay listener to log when audio is ready
+            audio.addEventListener('canplay', function() {
+                console.log(`Audio track ${trackId} is ready to play`);
             });
         }
     });
