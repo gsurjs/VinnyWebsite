@@ -22,10 +22,11 @@ const MUSIC_DIR = path.join(__dirname, 'protected-music');
 // Track configuration (this could be in a database in production)
 const TRACKS = {
     'track1': {
-        file: 'song1.mp3',
-        title: 'Your Song Title 1',
+        file: 'song1.m4a',
+        format: 'm4a'
+        title: 'Thank You',
         artist: 'Vinny Virtuoso',
-        previewStart: 60,  // Start preview at 60 seconds
+        previewStart: 44,  // Start preview at 44 seconds
         previewDuration: 30
     },
     'track2': {
@@ -59,8 +60,10 @@ app.get('/api/tracks', (req, res) => {
         trackInfo[id] = {
             title: TRACKS[id].title,
             artist: TRACKS[id].artist,
-            previewStart: TRACKS[id].previewStart,
-            previewDuration: TRACKS[id].previewDuration
+            format: TRACKS[id].format,
+            previewStart: TRACKS[id].previewStart || TRACKS[id].startTime,
+            previewDuration: TRACKS[id].previewDuration,
+            startTime: TRACKS[id].previewStart || 0
         };
     });
     res.json(trackInfo);
@@ -81,6 +84,12 @@ app.get('/api/stream/:trackId', checkAuth, (req, res) => {
     if (!fs.existsSync(filePath)) {
         return res.status(404).json({ error: 'File not found' });
     }
+
+    // Determine MIME type based on file format
+    let mimeType = 'audio/mpeg'; // default for mp3
+    if (track.format === 'm4a' || track.file.endsWith('.m4a')) {
+        mimeType = 'audio/mp4'; // M4A uses the audio/mp4 MIME type
+    }
     
     const stat = fs.statSync(filePath);
     const fileSize = stat.size;
@@ -97,7 +106,7 @@ app.get('/api/stream/:trackId', checkAuth, (req, res) => {
             'Content-Range': `bytes ${start}-${end}/${fileSize}`,
             'Accept-Ranges': 'bytes',
             'Content-Length': chunksize,
-            'Content-Type': 'audio/mpeg',
+            'Content-Type': mimeType, // use determined MIME type
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': 0
@@ -107,7 +116,7 @@ app.get('/api/stream/:trackId', checkAuth, (req, res) => {
     } else {
         const head = {
             'Content-Length': fileSize,
-            'Content-Type': 'audio/mpeg',
+            'Content-Type': mimeType, // Use determined MIME type
             'Accept-Ranges': 'bytes',
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
@@ -116,6 +125,21 @@ app.get('/api/stream/:trackId', checkAuth, (req, res) => {
         res.writeHead(200, head);
         fs.createReadStream(filePath).pipe(res);
     }
+});
+
+// Update the metadata endpoint to include format info
+app.get('/api/tracks', (req, res) => {
+    const trackInfo = {};
+    Object.keys(TRACKS).forEach(id => {
+        trackInfo[id] = {
+            title: TRACKS[id].title,
+            artist: TRACKS[id].artist,
+            format: TRACKS[id].format,
+            previewStart: TRACKS[id].previewStart,
+            previewDuration: TRACKS[id].previewDuration
+        };
+    });
+    res.json(trackInfo);
 });
 
 // Error handling middleware
