@@ -187,7 +187,7 @@ const MUSIC_CONFIG = {
     streamingEndpoint: '/api/stream/', // This should be your backend endpoint
     previewDuration: 30, // seconds
     tracks: {
-        'track1': { title: 'Song Title 1', startTime: 44 }, // Start preview at 44 seconds -Thank You-
+        'track1': { title: 'Song Title 1', startTime: 44 }, // Start preview at 1 minute
         'track2': { title: 'Song Title 2', startTime: 45 }, // Start preview at 45 seconds
         'track3': { title: 'Song Title 3', startTime: 30 }, // Start preview at 30 seconds
     }
@@ -211,14 +211,18 @@ async function initializeMusicPreviews() {
         const audioElements = document.querySelectorAll('audio');
         
         audioElements.forEach(audio => {
-            const source = audio.querySelector('source');
-            const trackId = source.getAttribute('data-track-id');
+            const sources = audio.querySelectorAll('source');
             const previewDuration = parseInt(audio.getAttribute('data-preview-duration')) || MUSIC_CONFIG.previewDuration;
             
+            // Get track ID from the first source
+            const trackId = sources[0]?.getAttribute('data-track-id');
+            
             if (trackId && MUSIC_CONFIG.tracks[trackId]) {
-                // Only set source if backend is available
+                // Set source URLs for all source elements
                 if (MUSIC_CONFIG.streamingEndpoint && MUSIC_CONFIG.streamingEndpoint.includes('http')) {
-                    source.src = `${MUSIC_CONFIG.streamingEndpoint}${trackId}`;
+                    sources.forEach(source => {
+                        source.src = `${MUSIC_CONFIG.streamingEndpoint}${trackId}`;
+                    });
                 }
                 
                 const trackInfo = MUSIC_CONFIG.tracks[trackId];
@@ -251,6 +255,18 @@ async function initializeMusicPreviews() {
                 // Reset when audio ends
                 audio.addEventListener('ended', function() {
                     hasStarted = false;
+                });
+                
+                // Handle loading errors
+                audio.addEventListener('error', function(e) {
+                    console.error(`Error loading audio for track ${trackId}:`, e);
+                });
+                
+                // Force browser to try loading the next source if one fails
+                sources.forEach(source => {
+                    source.addEventListener('error', function() {
+                        console.log(`Failed to load ${source.type} for track ${trackId}`);
+                    });
                 });
             }
         });
