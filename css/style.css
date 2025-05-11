@@ -76,6 +76,10 @@ body {
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 
+.nav-item.active-nav {
+    opacity: 1;
+}
+
 .nav-item::after {
     content: '';
     position: absolute;
@@ -142,28 +146,46 @@ body {
     transform: translateY(-10px);
 }
 
+/* Album covers */
 .album-cover {
     width: 100%;
     aspect-ratio: 1/1;
-    background-color: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+    object-fit: cover;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
+    transition: transform 0.3s ease;
 }
 
-.album-cover::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
+.album:hover .album-cover {
+    transform: scale(1.02);
+}
+
+/* Gallery items */
+.gallery-item {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Product images */
+.product-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.product:hover .product-image {
+    transform: scale(1.02);
 }
 
 .album-title {
@@ -180,6 +202,16 @@ body {
     opacity: 0.8;
 }
 
+.preview-label {
+    font-size: 0.7rem;
+    font-family: 'Share Tech Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    opacity: 0.6;
+    margin-top: 0.5rem;
+    text-align: center;
+}
+
 /* Gallery page */
 .gallery-container {
     display: grid;
@@ -192,32 +224,16 @@ body {
 .gallery-item {
     width: 100%;
     aspect-ratio: 16/9;
-    background-color: #111;
-    overflow: hidden;
-    position: relative;
+    object-fit: cover;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    cursor: pointer;
 }
 
 .gallery-item:hover {
     border-color: rgba(255, 255, 255, 0.3);
     transform: scale(1.02);
-}
-
-.gallery-item::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.02));
-    pointer-events: none;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
 }
 
 /* Shop page */
@@ -244,26 +260,13 @@ body {
 .product-image {
     width: 100%;
     aspect-ratio: 1/1;
-    background-color: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    object-fit: cover;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
-    opacity: 0.8;
-    position: relative;
-    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
-.product-image::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.05));
+.product:hover .product-image {
+    transform: scale(1.02);
 }
 
 .product-name {
@@ -365,8 +368,6 @@ button:hover {
     }
 }
 
-/* Replace the existing social links CSS with this fixed version */
-
 /* Social Links */
 .social-links {
     display: flex;
@@ -381,50 +382,15 @@ button:hover {
     color: rgba(255, 255, 255, 0.6);
     transition: all 0.3s ease;
     position: relative;
-    text-decoration: none;  /* Ensure no underlines */
-}
-
-.social-link:hover {
-    color: rgba(255, 255, 255, 1);
-    transform: translateY(-5px);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-/* Fix the pseudo-element to ensure it's only visible on hover */
-.social-link::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    opacity: 0;  /* Hidden by default */
-    transition: all 0.3s ease;
-    visibility: hidden;  /* Added to ensure it's hidden */
-}
-
-.social-link:hover::after {
-    opacity: 1;
-    width: 8px;
-    height: 8px;
-    visibility: visible;  /* Make visible on hover */
-}
-
-/* Also ensure Font Awesome icons don't have underlines */
-.social-link i {
     text-decoration: none;
-    display: block;
 }
+
 .social-link:hover {
     color: rgba(255, 255, 255, 1);
     transform: translateY(-5px);
     text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 
-/* Fix the pseudo-element to ensure it's only visible on hover */
 .social-link::after {
     content: '';
     position: absolute;
@@ -435,16 +401,16 @@ button:hover {
     height: 5px;
     background: rgba(255, 255, 255, 0.3);
     border-radius: 50%;
-    opacity: 0;  /* Hidden by default */
+    opacity: 0;
     transition: all 0.3s ease;
-    visibility: hidden;  /* Added to ensure it's hidden */
+    visibility: hidden;
 }
 
 .social-link:hover::after {
     opacity: 1;
     width: 8px;
     height: 8px;
-    visibility: visible;  /* Make visible on hover */
+    visibility: visible;
 }
 
 .social-link i {
@@ -776,6 +742,58 @@ audio {
     height: 40px;
 }
 
+/* Lightbox */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-close:hover {
+    opacity: 1;
+}
+
+/* Image loading animation */
+img {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img.loaded {
+    opacity: 1;
+}
+
 /* Better form inputs on mobile */
 input, textarea {
     font-size: 16px; /* Prevents zoom on iOS */
@@ -835,20 +853,4 @@ a.social-link {
 .social-link i:after {
     border: none !important;
     text-decoration: none !important;
-}
-
-.album-player audio {
-    width: 100%;
-    filter: invert(1);
-    opacity: 0.8;
-}
-
-.preview-label {
-    font-size: 0.7rem;
-    font-family: 'Share Tech Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    opacity: 0.6;
-    margin-top: 0.5rem;
-    text-align: center;
 }

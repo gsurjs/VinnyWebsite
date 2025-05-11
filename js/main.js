@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize music preview system
     initializeMusicPreviews();
     
+    // Initialize image gallery
+    initializeImageGallery();
+    
     // Navigation handling
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.page-content');
@@ -172,7 +175,7 @@ function updateSocialLinks() {
         }
     });
     
-    // Contact contact page links
+    // Update contact page links
     contactSocialLinks.forEach(link => {
         const label = link.getAttribute('aria-label');
         if (contactLinksMap[label] && contactLinksMap[label] !== '#') {
@@ -220,4 +223,56 @@ function initializeMusicPreviews() {
             });
         }
     });
+}
+
+function initializeImageGallery() {
+    // Add click handlers to gallery images for lightbox effect
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    
+    galleryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Create lightbox
+            const lightbox = document.createElement('div');
+            lightbox.className = 'lightbox';
+            lightbox.innerHTML = `
+                <div class="lightbox-content">
+                    <span class="lightbox-close">&times;</span>
+                    <img src="${this.src}" alt="${this.alt}">
+                </div>
+            `;
+            
+            document.body.appendChild(lightbox);
+            
+            // Add close functionality
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox || e.target.className === 'lightbox-close') {
+                    lightbox.remove();
+                }
+            });
+            
+            // Close on escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    lightbox.remove();
+                }
+            });
+        });
+    });
+    
+    // Add lazy loading for images
+    if ('IntersectionObserver' in window) {
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => imageObserver.observe(img));
+    }
 }
