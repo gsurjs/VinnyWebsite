@@ -10,7 +10,7 @@ const SOCIAL_LINKS = {
 document.addEventListener('DOMContentLoaded', function() {
     // UPDATE SOCIAL LINKS
     updateSocialLinks();
-
+    
     // Initialize music preview system
     initializeMusicPreviews();
     
@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update active navigation item
         navItems.forEach(navItem => {
             if (navItem.getAttribute('data-page') === pageId) {
-                navItem.style.opacity = '1';
+                navItem.classList.add('active-nav');
             } else {
-                navItem.style.opacity = '0.7';
+                navItem.classList.remove('active-nav');
             }
         });
         
@@ -48,6 +48,14 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
         showPage('home'); // Default to home if no hash
     }
+    
+    // Set initial active nav item
+    const initialPage = initialHash || 'home';
+    navItems.forEach(navItem => {
+        if (navItem.getAttribute('data-page') === initialPage) {
+            navItem.classList.add('active-nav');
+        }
+    });
     
     navItems.forEach(item => {
         item.addEventListener('click', function(e) {
@@ -172,6 +180,7 @@ function updateSocialLinks() {
         }
     });
 }
+
 // Music preview configuration
 const MUSIC_CONFIG = {
     // Use environment variables or backend API endpoints
@@ -184,51 +193,68 @@ const MUSIC_CONFIG = {
     }
 };
 
-function initializeMusicPreviews() {
-    const audioElements = document.querySelectorAll('audio');
-    
-    audioElements.forEach(audio => {
-        const source = audio.querySelector('source');
-        const trackId = source.getAttribute('data-track-id');
-        const previewDuration = parseInt(audio.getAttribute('data-preview-duration')) || MUSIC_CONFIG.previewDuration;
-        
-        if (trackId && MUSIC_CONFIG.tracks[trackId]) {
-            // Set up the audio source with streaming endpoint
-            // In production, this would be your secure backend endpoint
-            source.src = `${MUSIC_CONFIG.streamingEndpoint}${trackId}`;
-            
-            // Handle timeupdate to limit preview duration
-            let hasStarted = false;
-            audio.addEventListener('timeupdate', function() {
-                const trackInfo = MUSIC_CONFIG.tracks[trackId];
-                
-                // Start at the specified preview point
-                if (!hasStarted && audio.currentTime < trackInfo.startTime) {
-                    audio.currentTime = trackInfo.startTime;
-                    hasStarted = true;
+async function initializeMusicPreviews() {
+    try {
+        // Try to fetch track metadata from backend
+        if (MUSIC_CONFIG.metadataEndpoint && MUSIC_CONFIG.metadataEndpoint.includes('http')) {
+            try {
+                const response = await fetch(MUSIC_CONFIG.metadataEndpoint);
+                if (response.ok) {
+                    const tracks = await response.json();
+                    MUSIC_CONFIG.tracks = tracks;
                 }
-                
-                // Stop playback after preview duration
-                if (audio.currentTime >= trackInfo.startTime + previewDuration) {
-                    audio.pause();
-                    audio.currentTime = trackInfo.startTime;
-                    hasStarted = false;
-                }
-            });
-            
-            // Prevent seeking outside preview range
-            audio.addEventListener('seeking', function() {
-                const trackInfo = MUSIC_CONFIG.tracks[trackId];
-                if (audio.currentTime < trackInfo.startTime || 
-                    audio.currentTime > trackInfo.startTime + previewDuration) {
-                    audio.currentTime = trackInfo.startTime;
-                }
-            });
-            
-            // Reset when audio ends
-            audio.addEventListener('ended', function() {
-                hasStarted = false;
-            });
+            } catch (fetchError) {
+                console.log('Backend not available, using default track configuration');
+            }
         }
-    });
+        
+        const audioElements = document.querySelectorAll('audio');
+        
+        audioElements.forEach(audio => {
+            const source = audio.querySelector('source');
+            const trackId = source.getAttribute('data-track-id');
+            const previewDuration = parseInt(audio.getAttribute('data-preview-duration')) || MUSIC_CONFIG.previewDuration;
+            
+            if (trackId && MUSIC_CONFIG.tracks[trackId]) {
+                // Only set source if backend is available
+                if (MUSIC_CONFIG.streamingEndpoint && MUSIC_CONFIG.streamingEndpoint.includes('http')) {
+                    source.src = `${MUSIC_CONFIG.streamingEndpoint}${trackId}`;
+                }
+                
+                const trackInfo = MUSIC_CONFIG.tracks[trackId];
+                
+                // Handle timeupdate to limit preview duration
+                let hasStarted = false;
+                audio.addEventListener('timeupdate', function() {
+                    // Start at the specified preview point
+                    if (!hasStarted && audio.currentTime < trackInfo.startTime) {
+                        audio.currentTime = trackInfo.startTime;
+                        hasStarted = true;
+                    }
+                    
+                    // Stop playback after preview duration
+                    if (audio.currentTime >= trackInfo.startTime + previewDuration) {
+                        audio.pause();
+                        audio.currentTime = trackInfo.startTime;
+                        hasStarted = false;
+                    }
+                });
+                
+                // Prevent seeking outside preview range
+                audio.addEventListener('seeking', function() {
+                    if (audio.currentTime < trackInfo.startTime || 
+                        audio.currentTime > trackInfo.startTime + previewDuration) {
+                        audio.currentTime = trackInfo.startTime;
+                    }
+                });
+                
+                // Reset when audio ends
+                audio.addEventListener('ended', function() {
+                    hasStarted = false;
+                });
+            }
+        });
+    } catch (error) {
+        console.error('Error initializing music previews:', error);
+    }
 }
