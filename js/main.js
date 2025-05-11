@@ -3,7 +3,7 @@ const SOCIAL_LINKS = {
     spotify: "https://open.spotify.com/artist/50ZkNr2NdgCRlcJbFqRUCV",  
     appleMusic: "https://music.apple.com/us/artist/vinny/1453764", 
     youtube: "https://www.youtube.com/@vinnyvirtuoso", 
-    instagram: "https://instagram.com/playvirtuoso",  
+    instagram: "https://instagram.com/vinnyvirtuoso",  
     twitter: "https://x.com/vinnyvirtuoso",
 };
 
