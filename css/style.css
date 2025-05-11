@@ -478,23 +478,205 @@ button:hover {
     animation: glitch 0.5s infinite;
 }
 
-/* Mobile responsive */
+/* Mobile responsive improvements */
 @media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        min-height: 100vh;
+    }
+    
     .logo {
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        letter-spacing: 0.3rem;
     }
     
     .nav {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .nav-item {
+        font-size: 0.9rem;
+        letter-spacing: 0.2rem;
+    }
+    
+    /* Page content */
+    .page-content {
+        padding: 2rem 0;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        letter-spacing: 0.3rem;
+    }
+    
+    /* Home page social links */
+    .social-links {
         gap: 1.5rem;
+        margin-top: 1rem;
+    }
+    
+    .social-link {
+        font-size: 1.8rem;
+    }
+    
+    /* Music page */
+    .streaming-platforms {
+        margin-bottom: 3rem;
+    }
+    
+    .platform-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        max-width: 100%;
+    }
+    
+    .platform-link {
+        padding: 1rem;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+    
+    .platform-link i {
+        font-size: 1.8rem;
+        margin-bottom: 0;
+    }
+    
+    .music-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    /* Gallery */
+    .gallery-container {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .gallery-item {
+        aspect-ratio: 4/3;
+    }
+    
+    /* Shop */
+    .shop-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+    
+    .product-name {
+        font-size: 0.8rem;
+    }
+    
+    .product-price {
+        font-size: 0.75rem;
+    }
+    
+    /* Contact */
+    .contact-form {
+        gap: 1rem;
+    }
+    
+    input, textarea, button {
+        padding: 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .contact-info h3 {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .email-info {
+        font-size: 0.8rem;
+        margin-top: 1.5rem;
+        word-break: break-word;
+    }
+}
+
+/* Smaller phones (iPhone SE, etc) */
+@media (max-width: 375px) {
+    .logo {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .nav-item {
+        font-size: 0.8rem;
+    }
+    
+    .page-title {
+        font-size: 1.2rem;
+    }
+    
+    .social-link {
+        font-size: 1.6rem;
+    }
+    
+    .platform-link i {
+        font-size: 1.5rem;
+    }
+    
+    .platform-link span {
+        font-size: 0.8rem;
+    }
+    
+    .shop-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+}
+
+/* Landscape mode for phones */
+@media (max-width: 768px) and (orientation: landscape) {
+    .container {
+        padding: 1rem 2rem;
+    }
+    
+    .logo {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .social-links {
+        gap: 2rem;
+    }
+    
+    .platform-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        padding: 1.5rem;
+    }
+    
+    .logo {
+        font-size: 3rem;
     }
     
     .music-container,
     .gallery-container,
     .shop-container {
-        grid-template-columns: 1fr;
-        padding: 1rem;
+        gap: 2rem;
+    }
+    
+    .gallery-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
