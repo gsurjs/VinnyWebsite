@@ -10,6 +10,9 @@ const SOCIAL_LINKS = {
 document.addEventListener('DOMContentLoaded', function() {
     // UPDATE SOCIAL LINKS
     updateSocialLinks();
+
+    // Initialize music preview system
+    initializeMusicPreviews();
     
     // Navigation handling
     const navItems = document.querySelectorAll('.nav-item');
@@ -166,6 +169,65 @@ function updateSocialLinks() {
             if (platformMap[name] && platformMap[name] !== '#') {
                 link.href = platformMap[name];
             }
+        }
+    });
+// Music preview configuration
+const MUSIC_CONFIG = {
+    // Use environment variables or backend API endpoints
+    streamingEndpoint: '/api/stream/', // This should be your backend endpoint
+    previewDuration: 30, // seconds
+    tracks: {
+        'track1': { title: 'Song Title 1', startTime: 44 }, // Start preview at 44 seconds -Thank You-
+        'track2': { title: 'Song Title 2', startTime: 45 }, // Start preview at 45 seconds
+        'track3': { title: 'Song Title 3', startTime: 30 }, // Start preview at 30 seconds
+    }
+};
+
+function initializeMusicPreviews() {
+    const audioElements = document.querySelectorAll('audio');
+    
+    audioElements.forEach(audio => {
+        const source = audio.querySelector('source');
+        const trackId = source.getAttribute('data-track-id');
+        const previewDuration = parseInt(audio.getAttribute('data-preview-duration')) || MUSIC_CONFIG.previewDuration;
+        
+        if (trackId && MUSIC_CONFIG.tracks[trackId]) {
+            // Set up the audio source with streaming endpoint
+            // In production, this would be your secure backend endpoint
+            source.src = `${MUSIC_CONFIG.streamingEndpoint}${trackId}`;
+            
+            // Handle timeupdate to limit preview duration
+            let hasStarted = false;
+            audio.addEventListener('timeupdate', function() {
+                const trackInfo = MUSIC_CONFIG.tracks[trackId];
+                
+                // Start at the specified preview point
+                if (!hasStarted && audio.currentTime < trackInfo.startTime) {
+                    audio.currentTime = trackInfo.startTime;
+                    hasStarted = true;
+                }
+                
+                // Stop playback after preview duration
+                if (audio.currentTime >= trackInfo.startTime + previewDuration) {
+                    audio.pause();
+                    audio.currentTime = trackInfo.startTime;
+                    hasStarted = false;
+                }
+            });
+            
+            // Prevent seeking outside preview range
+            audio.addEventListener('seeking', function() {
+                const trackInfo = MUSIC_CONFIG.tracks[trackId];
+                if (audio.currentTime < trackInfo.startTime || 
+                    audio.currentTime > trackInfo.startTime + previewDuration) {
+                    audio.currentTime = trackInfo.startTime;
+                }
+            });
+            
+            // Reset when audio ends
+            audio.addEventListener('ended', function() {
+                hasStarted = false;
+            });
         }
     });
 }
