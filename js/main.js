@@ -7,8 +7,10 @@ const SOCIAL_LINKS = {
     twitter: "https://x.com/vinnyvirtuoso",
 };
 
-
 document.addEventListener('DOMContentLoaded', function() {
+    // UPDATE SOCIAL LINKS - This was missing!
+    updateSocialLinks();
+    
     // Navigation handling
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.page-content');
@@ -122,12 +124,16 @@ function updateSocialLinks() {
     const platformMap = {
         'Spotify': SOCIAL_LINKS.spotify,
         'Apple Music': SOCIAL_LINKS.appleMusic,
+        'YouTube Music': SOCIAL_LINKS.youtube,
     };
     
     platformLinks.forEach(link => {
-        const platformName = link.querySelector('span').textContent;
-        if (platformMap[platformName] && platformMap[platformName] !== '#') {
-            link.href = platformMap[platformName];
+        const platformName = link.querySelector('span');
+        if (platformName) {
+            const name = platformName.textContent;
+            if (platformMap[name] && platformMap[name] !== '#') {
+                link.href = platformMap[name];
+            }
         }
     });
 }
