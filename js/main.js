@@ -172,7 +172,7 @@ function updateSocialLinks() {
         }
     });
     
-    // Update contact page links
+    // Contact contact page links
     contactSocialLinks.forEach(link => {
         const label = link.getAttribute('aria-label');
         if (contactLinksMap[label] && contactLinksMap[label] !== '#') {
