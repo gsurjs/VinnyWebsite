@@ -171,6 +171,7 @@ function updateSocialLinks() {
             }
         }
     });
+}
 // Music preview configuration
 const MUSIC_CONFIG = {
     // Use environment variables or backend API endpoints
