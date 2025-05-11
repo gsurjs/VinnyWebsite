@@ -257,6 +257,54 @@ function initializeMusicPreviews() {
     });
 }
 
+updateAudioLoadingStates();
+
+function updateAudioLoadingStates() {
+    const audioElements = document.querySelectorAll('audio');
+    
+    audioElements.forEach(audio => {
+        const container = audio.closest('.album-player');
+        if (!container) return;
+        
+        const loadingIndicator = container.querySelector('.loading-indicator');
+        if (!loadingIndicator) return;
+        
+        // Show loading indicator initially
+        loadingIndicator.style.display = 'block';
+        
+        // Hide loading indicator when metadata is loaded
+        audio.addEventListener('loadedmetadata', function() {
+            loadingIndicator.style.display = 'none';
+        });
+        
+        // Show loading indicator when waiting for data
+        audio.addEventListener('waiting', function() {
+            loadingIndicator.style.display = 'block';
+        });
+        
+        // Hide loading indicator when can play
+        audio.addEventListener('canplay', function() {
+            loadingIndicator.style.display = 'none';
+        });
+        
+        // Hide loading indicator when playing
+        audio.addEventListener('playing', function() {
+            loadingIndicator.style.display = 'none';
+        });
+        
+        // Show loading indicator on error and retry
+        audio.addEventListener('error', function() {
+            loadingIndicator.textContent = 'Error loading audio. Retrying...';
+            loadingIndicator.style.display = 'block';
+            
+            // Try to reload after a short delay
+            setTimeout(() => {
+                audio.load();
+            }, 1000);
+        });
+    });
+}
+
 function initializeImageGallery() {
     // Add click handlers to gallery images for lightbox effect
     const galleryItems = document.querySelectorAll('.gallery-item');
