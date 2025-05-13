@@ -202,6 +202,8 @@ function updateSocialLinks() {
     });
 }
 
+// Keep track of currently playing audio element
+let currentlyPlaying = null;
 
 function initializeMusicPreviews() {
     const audioElements = document.querySelectorAll('audio');
@@ -220,6 +222,16 @@ function initializeMusicPreviews() {
             
             // Force the audio element to load the new sources
             audio.load();
+
+            // Add play event to pause other audio elements
+            audio.addEventListener('play', function() {
+                // Pause any currently playing audio that's not this one
+                if (currentlyPlaying && currentlyPlaying !== audio) {
+                    currentlyPlaying.pause();
+                }
+                // Set this as the currently playing audio
+                currentlyPlaying = audio;
+            });
             
             // Add click handler to ensure first click works
             const audioContainer = audio.closest('.album-player');
