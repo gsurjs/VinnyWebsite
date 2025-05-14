@@ -121,11 +121,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Form submission
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add form submission logic here
-            alert('Message sent! (Form submission needs to be configured)');
-        });
+        // Check if the form has a Formspree action
+        if (contactForm.action && contactForm.action.includes('formspree.io')) {
+            // If using Formspree, don't prevent default submission
+            contactForm.addEventListener('submit', function() {
+                // You can still do something here before the form submits, if needed
+                console.log('Submitting form to Formspree...');
+                // But we won't call preventDefault()
+            });
+        } else {
+            // Original fallback code for non-Formspree forms
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Message sent! (Form submission needs to be configured)');
+            });
+        }
     }
     
     // Add typing effect to logo
