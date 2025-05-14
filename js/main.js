@@ -26,6 +26,11 @@ const MUSIC_CONFIG = {
 };
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    function checkPageExists(pageId) {
+    return document.getElementById(pageId) !== null;
+    }
+
     // UPDATE SOCIAL LINKS
     updateSocialLinks();
     
@@ -41,6 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to show specific page
     function showPage(pageId) {
+
+        // Check if the page exists before showing it
+        if (!checkPageExists(pageId)) {
+            pageId = 'home'; // Default to home if the requested page doesn't exist
+        }
+        
         // Update active navigation item
         navItems.forEach(navItem => {
             if (navItem.getAttribute('data-page') === pageId) {
