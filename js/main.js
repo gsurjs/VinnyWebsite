@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Original fallback code for non-Formspree forms
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                alert('Message sent! (Form submission needs to be configured)');
+                alert('Either fake email or submission error!');
             });
         }
     }
