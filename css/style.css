@@ -980,6 +980,8 @@ audio.loading {
     display: flex;      /* Add flexbox display */
     justify-content: center; /* Center content horizontally */
     align-items: center;     /* Center content vertically */;
+    box-sizing: border-box;
+    position: relative;
 }
 
 .gumroad-button:hover {
