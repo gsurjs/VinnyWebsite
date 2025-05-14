@@ -976,7 +976,10 @@ audio.loading {
     transition: all 0.3s ease;
     text-decoration: none;
     width: 100%;
-    text-align: center;
+    text-align: center; /* text is centered horizontally */
+    display: flex;      /* Add flexbox display */
+    justify-content: center; /* Center content horizontally */
+    align-items: center;     /* Center content vertically */;
 }
 
 .gumroad-button:hover {
