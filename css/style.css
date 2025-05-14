@@ -961,27 +961,26 @@ audio.loading {
 }
 
 /* Gumroad buttons */
-.gumroad-button {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    padding: 0.8rem 1.2rem;
-    font-family: 'Orbitron', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-    margin: 1rem 0;
-    display: block;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    width: 100%;
-    text-align: center; /* text is centered horizontally */
-    display: flex;      /* Add flexbox display */
-    justify-content: center; /* Center content horizontally */
-    align-items: center;     /* Center content vertically */;
-    box-sizing: border-box;
-    position: relative;
+/* Stronger selector to override Gumroad's default styles */
+.album-player a.gumroad-button {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 0.8rem 0 !important;
+    font-family: 'Orbitron', monospace !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2rem !important;
+    margin: 1rem 0 !important;
+    cursor: pointer !important;
+    font-size: 0.8rem !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    position: relative !important;
+    line-height: normal !important;
+    overflow: visible !important;
 }
 
 .gumroad-button:hover {
