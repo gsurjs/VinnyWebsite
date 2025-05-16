@@ -39,6 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize image gallery
     initializeImageGallery();
+
+    // Initialize banner image
+    initializeBannerImage();
     
     // Navigation handling
     const navItems = document.querySelectorAll('.nav-item');
@@ -408,5 +411,31 @@ function initializeImageGallery() {
         });
         
         images.forEach(img => imageObserver.observe(img));
+    }
+}
+
+function initializeBannerImage() {
+    const bannerImage = document.querySelector('.banner-image');
+
+    if (bannerImage) {
+        // Add loading handler
+        bannerImage.addEventListener('load', function() {
+            this.classList.add('loaded');
+        });
+        
+        // Add error handler
+        bannerImage.addEventListener('error', function() {
+            console.error("Error loading banner image");
+            
+            // If error, add a fallback background color
+            this.style.height = '180px';
+            this.style.backgroundColor = '#111';
+            this.style.opacity = '1';
+        });
+        
+        // If image is already cached and loaded instantly
+        if (bannerImage.complete) {
+            bannerImage.classList.add('loaded');
+        }
     }
 }
