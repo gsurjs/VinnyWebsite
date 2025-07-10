@@ -133,11 +133,16 @@ body {
     gap: 3rem;
     width: 100%;
     padding: 0 2rem;
+    justify-content: center !important; /* Center the grid items */
+    justify-items: center !important; /* Center individual items */
+    margin: 0 auto !important; /* Center the container */
+    max-width: 900px !important; /* Limit max width to prevent stretching */
 }
 
-.album {
-    display: flex;
-    flex-direction: column;
+
+.music-container .album {
+    width: 100%;
+    max-width: 280px; /* Match the minmax value */
     gap: 1.5rem;
     transition: transform 0.3s ease;
 }
