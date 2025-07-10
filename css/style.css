@@ -17,6 +17,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
+    -webkit-text-size-adjust: 100%;
 }
 
 .container {
@@ -28,6 +29,9 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
 }
 
 .logo {
@@ -51,6 +55,34 @@ body {
     background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
 }
 
+.logo:hover {
+    animation: glitch 0.5s infinite;
+}
+
+/* Banner styling */
+.banner-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+    padding: 0 1rem;
+    overflow: hidden;
+}
+
+.banner-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.3s ease;
+    transform: translateY(10px);
+}
+
+.banner-image.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 .nav {
     display: flex;
     justify-content: center;
@@ -69,6 +101,12 @@ body {
     font-weight: 400;
     opacity: 0.7;
     font-family: 'Share Tech Mono', monospace;
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-item:hover {
@@ -126,7 +164,7 @@ body {
     margin-top: 2rem;
 }
 
-/* Music page - Fixed centering */
+/* Music page - FIXED CENTERING */
 .music-container {
     display: flex;
     flex-wrap: wrap;
@@ -143,22 +181,32 @@ body {
     flex-direction: column;
     gap: 1.5rem;
     transition: transform 0.3s ease;
-    width: 280px; /* Fixed width instead of max-width */
-    flex-shrink: 0; /* Prevent shrinking */
+    width: 280px;
+    flex-shrink: 0;
 }
 
 .album:hover {
     transform: translateY(-10px);
 }
 
-/* Updated album cover styles for images */
 .album-cover {
     width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
-    background-color: #111; /* Fallback background */
+    background-color: #111;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.album:hover .album-cover {
+    transform: scale(1.02);
 }
 
 .album-title {
@@ -173,6 +221,12 @@ body {
     width: 100%;
     filter: invert(1);
     opacity: 0.8;
+    height: 40px;
+    transition: opacity 0.3s ease;
+}
+
+.album-player audio.loading {
+    opacity: 0.6;
 }
 
 .preview-label {
@@ -185,214 +239,57 @@ body {
     text-align: center;
 }
 
-/* Gallery page */
-.gallery-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
-    width: 100%;
-    padding: 2rem;
-}
-
-/* Updated gallery item styles for images */
-.gallery-item {
-    width: 100%;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    cursor: pointer;
-    background-color: #111; /* Fallback background */
-}
-
-.gallery-item:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    transform: scale(1.02);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-/* Shop page */
-.shop-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 3rem;
-    width: 100%;
-    padding: 2rem;
-}
-
-.product {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.product:hover {
-    transform: translateY(-10px);
-}
-
-/* Updated product image styles for images */
-.product-image {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease;
-    background-color: #111; /* Fallback background */
-}
-
-.product:hover .product-image {
-    transform: scale(1.02);
-}
-
-.product-name {
-    font-size: 0.9rem;
+.loading-indicator {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.7rem;
     text-transform: uppercase;
-    font-family: 'Share Tech Mono', monospace;
-    letter-spacing: 0.2rem;
-    opacity: 0.9;
-}
-
-.product-price {
-    font-size: 0.8rem;
-    font-family: 'Share Tech Mono', monospace;
-    opacity: 0.7;
-}
-
-/* Contact page */
-.contact-form {
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    margin: 0 auto 3rem;
-}
-
-input, textarea, button {
-    width: 100%;
-    padding: 1rem;
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
     letter-spacing: 0.1rem;
-    transition: all 0.3s ease;
-}
-
-input::placeholder, textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
-    text-transform: uppercase;
-}
-
-input:focus, textarea:focus {
-    outline: none;
-    border-color: rgba(255, 255, 255, 0.3);
-    background-color: rgba(255, 255, 255, 0.05);
-}
-
-button {
-    cursor: pointer;
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3rem;
-    padding: 1.2rem;
-    transition: all 0.3s ease;
-    font-family: 'Orbitron', monospace;
-}
-
-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-}
-
-/* Contact Info Section */
-.contact-info {
-    text-align: center;
-    margin-top: 3rem;
-}
-
-.contact-info h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.3rem;
-    opacity: 0.9;
-}
-
-.email-info {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
-    margin-top: 2rem;
     opacity: 0.7;
+    margin-top: 0.3rem;
+    animation: pulse 1.5s infinite;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Payhip buttons */
+.album-player a.payhip-buy-button {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 0.8rem 0 !important;
+    font-family: 'Orbitron', monospace !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.2rem !important;
+    margin: 1rem 0 !important;
+    cursor: pointer !important;
+    font-size: 0.8rem !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    position: relative !important;
+    line-height: normal !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
 }
 
-/* Social Links */
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
+.album-player a.payhip-buy-button:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: translateY(-2px) !important;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5) !important;
+    color: white !important;
 }
 
-.social-link {
-    font-size: 2rem;
-    color: rgba(255, 255, 255, 0.6);
-    transition: all 0.3s ease;
-    position: relative;
-    text-decoration: none;
-}
-
-.social-link:hover {
-    color: rgba(255, 255, 255, 1);
-    transform: translateY(-5px);
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-}
-
-.social-link::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 5px;
-    height: 5px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    opacity: 0;
-    transition: all 0.3s ease;
-    visibility: hidden;
-}
-
-.social-link:hover::after {
-    opacity: 1;
-    width: 8px;
-    height: 8px;
-    visibility: visible;
-}
-
-.social-link i {
-    text-decoration: none;
-    display: block;
+.album-player a.payhip-buy-button span {
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    text-transform: inherit !important;
+    letter-spacing: inherit !important;
 }
 
 /* Music Streaming Platforms */
@@ -441,6 +338,259 @@ button:hover {
     font-family: 'Share Tech Mono', monospace;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
+}
+
+/* Gallery page */
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    padding: 2rem;
+}
+
+.gallery-item {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    background-color: #111;
+}
+
+.gallery-item:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.gallery-item.error {
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.gallery-item.error::after {
+    content: attr(alt);
+    text-align: center;
+}
+
+/* Shop page */
+.shop-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 3rem;
+    width: 100%;
+    padding: 2rem;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-10px);
+}
+
+.product-image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease;
+    background-color: #111;
+}
+
+.product:hover .product-image {
+    transform: scale(1.02);
+}
+
+.product-image.error {
+    background-color: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+}
+
+.product-image.error::after {
+    content: attr(alt);
+    text-align: center;
+}
+
+.product-name {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.2rem;
+    opacity: 0.9;
+}
+
+.product-price {
+    font-size: 0.8rem;
+    font-family: 'Share Tech Mono', monospace;
+    opacity: 0.7;
+}
+
+/* Contact page */
+.contact-form {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 0 auto 3rem;
+}
+
+input, textarea, button {
+    width: 100%;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.1rem;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    -webkit-appearance: none;
+    border-radius: 4px;
+}
+
+input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+}
+
+input:focus, textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+button {
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    padding: 1.2rem;
+    transition: all 0.3s ease;
+    font-family: 'Orbitron', monospace;
+    min-height: 44px;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.contact-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    opacity: 0.9;
+}
+
+.email-info {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    margin-top: 2rem;
+    opacity: 0.7;
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.social-link {
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.6);
+    transition: all 0.3s ease;
+    position: relative;
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: none !important;
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-link:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-5px);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.social-link::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+    transition: all 0.3s ease;
+    visibility: hidden;
+}
+
+.social-link:hover::after {
+    opacity: 1;
+    width: 8px;
+    height: 8px;
+    visibility: visible;
+}
+
+.social-link i {
+    text-decoration: none !important;
+    display: block;
+    border: none !important;
+}
+
+.social-link:before,
+.social-link i:before,
+.social-link i:after {
+    border: none !important;
+    text-decoration: none !important;
+}
+
+/* Remove any default Font Awesome styling */
+.fab, .fas {
+    text-decoration: none !important;
+    border: none !important;
+    border-bottom: none !important;
 }
 
 /* Lightbox for gallery images */
@@ -495,30 +645,11 @@ img.loaded {
     opacity: 1;
 }
 
-/* Error state for all images */
 img.error {
     opacity: 1;
     position: relative;
 }
 
-/* Specific handling for album covers */
-.album-cover {
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease;
-    background-color: #111;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-
-/* Show placeholder text for missing album covers */
 .album-cover.error::after {
     content: attr(alt);
     position: absolute;
@@ -526,50 +657,48 @@ img.error {
     padding: 1rem;
 }
 
-/* Hide the broken image icon */
 .album-cover.error {
     font-size: 0;
 }
 
-/* Gallery items with error */
-.gallery-item.error {
-    background-color: #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.9rem;
+/* Audio player styling */
+audio::-webkit-media-controls-panel {
+    background-color: rgba(30, 30, 30, 0.7);
 }
 
-.gallery-item.error::after {
-    content: attr(alt);
-    text-align: center;
+audio::-webkit-media-controls-play-button {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
 }
 
-/* Product images with error */
-.product-image.error {
-    background-color: #111;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255, 255, 255, 0.5);
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.8rem;
+audio::-webkit-media-controls-play-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
-.product-image.error::after {
-    content: attr(alt);
-    text-align: center;
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Glitch effect */
+@keyframes pulse {
+    0% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.4; }
+}
+
 @keyframes glitch {
     0% {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
     25% {
-        text-shadow: -1px 0 0 rgba(255, 0, 0, 0.5), 1px 0 0 rgba(0, 255, 255, 0.5);
+        text-shadow: -1px 0 0 rgba(255, 0, 0, 0.5), 1px 0 0 (0, 255, 255, 0.5);
     }
     50% {
         text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
@@ -582,14 +711,19 @@ img.error {
     }
 }
 
-.logo:hover {
-    animation: glitch 0.5s infinite;
+/* Prevent horizontal scrolling */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
 }
 
-/* Mobile responsive improvements */
+/* MOBILE RESPONSIVE - 768px and below */
 @media (max-width: 768px) {
     .container {
         padding: 1rem;
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -614,6 +748,15 @@ img.error {
         width: 80%;
     }
     
+    .banner-container {
+        padding: 0;
+        margin-bottom: 2rem;
+    }
+    
+    .banner-image {
+        border-radius: 4px;
+    }
+    
     .nav {
         flex-direction: column;
         align-items: center;
@@ -626,7 +769,6 @@ img.error {
         letter-spacing: 0.2rem;
     }
     
-    /* Page content */
     .page-content {
         padding: 2rem 0;
     }
@@ -637,7 +779,6 @@ img.error {
         letter-spacing: 0.3rem;
     }
     
-    /* Home page social links */
     .social-links {
         gap: 1.5rem;
         margin-top: 1rem;
@@ -647,7 +788,7 @@ img.error {
         font-size: 1.8rem;
     }
     
-    /* Music page */
+    /* Music page mobile */
     .streaming-platforms {
         margin-bottom: 3rem;
     }
@@ -671,12 +812,25 @@ img.error {
     }
     
     .music-container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
+        align-items: center;
         gap: 2rem;
         padding: 0 1rem;
+        max-width: 400px;
     }
     
-    /* Gallery */
+    .album {
+        width: 100%;
+        max-width: 280px;
+    }
+    
+    .album-player a.payhip-buy-button {
+        padding: 0.7rem 0 !important;
+        font-size: 0.75rem !important;
+        margin: 0.8rem 0 !important;
+    }
+    
+    /* Gallery mobile */
     .gallery-container {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -687,7 +841,7 @@ img.error {
         aspect-ratio: 4/3;
     }
     
-    /* Shop */
+    /* Shop mobile */
     .shop-container {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 1.5rem;
@@ -702,7 +856,7 @@ img.error {
         font-size: 0.75rem;
     }
     
-    /* Contact */
+    /* Contact mobile */
     .contact-form {
         gap: 1rem;
     }
@@ -724,15 +878,11 @@ img.error {
     }
 }
 
-/* Smaller phones (iPhone SE, etc) */
+/* SMALLER PHONES - 375px and below */
 @media (max-width: 375px) {
     .logo {
         font-size: 1.6rem;
         margin-bottom: 1.5rem;
-        text-align: center;
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
     }
     
     .nav-item {
@@ -761,7 +911,7 @@ img.error {
     }
 }
 
-/* Landscape mode for phones */
+/* LANDSCAPE MODE FOR PHONES */
 @media (max-width: 768px) and (orientation: landscape) {
     .container {
         padding: 1rem 2rem;
@@ -787,7 +937,7 @@ img.error {
     }
 }
 
-/* Tablets */
+/* TABLETS - 769px to 1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
     .container {
         padding: 1.5rem;
@@ -807,276 +957,3 @@ img.error {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-
-/* Prevent horizontal scrolling */
-html, body {
-    overflow-x: hidden;
-    width: 100%;
-}
-
-/* Better touch targets for mobile */
-.nav-item {
-    padding: 0.5rem;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.social-link {
-    padding: 0.5rem;
-    min-width: 44px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Improve audio player styling on mobile */
-audio {
-    width: 100%;
-    height: 40px;
-}
-
-/* Better form inputs on mobile */
-input, textarea {
-    font-size: 16px; /* Prevents zoom on iOS */
-    -webkit-appearance: none;
-    border-radius: 4px;
-}
-
-/* Improve button tap targets */
-button {
-    min-height: 44px;
-    border-radius: 4px;
-}
-
-/* Fix text sizing issues on iOS */
-body {
-    -webkit-text-size-adjust: 100%;
-}
-
-/* Add safe area insets for newer phones with notches */
-.container {
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-        padding-left: max(1rem, env(safe-area-inset-left));
-        padding-right: max(1rem, env(safe-area-inset-right));
-        padding-bottom: max(1rem, env(safe-area-inset-bottom));
-    }
-}
-
-/* Remove any default Font Awesome styling that might cause lines */
-.fab, .fas {
-    text-decoration: none !important;
-    border: none !important;
-    border-bottom: none !important;
-}
-
-/* Ensure anchor tags with social icons have no underlines */
-a.social-link {
-    text-decoration: none !important;
-    border: none !important;
-    border-bottom: none !important;
-}
-
-/* Reset any potential inherited styles */
-.social-links a {
-    text-decoration: none !important;
-}
-
-/* If the issue persists, this nuclear option should fix it */
-.social-link:before,
-.social-link i:before,
-.social-link i:after {
-    border: none !important;
-    text-decoration: none !important;
-}
-
-.loading-indicator {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    opacity: 0.7;
-    margin-top: 0.3rem;
-    animation: pulse 1.5s infinite;
-}
-
-@keyframes pulse {
-    0% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-    100% { opacity: 0.4; }
-}
-
-/* Improve feedback for audio controls */
-audio::-webkit-media-controls-panel {
-    background-color: rgba(30, 30, 30, 0.7);
-}
-
-audio::-webkit-media-controls-play-button {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 50%;
-}
-
-audio::-webkit-media-controls-play-button:hover {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-
-/* Add a subtle transition for the audio controls */
-audio {
-    transition: opacity 0.3s ease;
-}
-
-audio.loading {
-    opacity: 0.6;
-}
-
-
-/* For single album, ensure it's centered */
-.music-container .album {
-    width: 100%;
-    max-width: 280px; /* Match the minmax value */
-}
-
-/*small screen support */
-@media (max-width: 768px) {
-    .music-container {
-        grid-template-columns: minmax(250px, 1fr) !important;
-        max-width: 400px !important;
-        gap: 2rem !important;
-        padding: 0 !important;
-        justify-content: center !important;
-        justify-items: center !important;
-    }
-
-    .album {
-        width: 100%;
-        max-width: 280px;
-    }
-
-    .album-player a.payhip-buy-button {
-        padding: 0.7rem 0 !important;
-        font-size: 0.75rem !important;
-        margin: 0.8rem 0 !important;
-    }
-}
-
-/* Payhip buttons - replaces the Gumroad button styles */
-.album-player a.payhip-buy-button {
-    background-color: rgba(255, 255, 255, 0.05) !important;
-    color: white !important;
-    border: 1px solid rgba(255, 255, 255, 0.3) !important;
-    padding: 0.8rem 0 !important;
-    font-family: 'Orbitron', monospace !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.2rem !important;
-    margin: 1rem 0 !important;
-    cursor: pointer !important;
-    font-size: 0.8rem !important;
-    transition: all 0.3s ease !important;
-    text-decoration: none !important;
-    display: block !important;
-    width: 100% !important;
-    text-align: center !important;
-    position: relative !important;
-    line-height: normal !important;
-    overflow: visible !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-}
-
-.album-player a.payhip-buy-button:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    transform: translateY(-2px) !important;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5) !important;
-    color: white !important;
-}
-
-/* Ensure the span inside the button inherits the styling */
-.album-player a.payhip-buy-button span {
-    color: inherit !important;
-    font-family: inherit !important;
-    font-size: inherit !important;
-    text-transform: inherit !important;
-    letter-spacing: inherit !important;
-}
-
-/* Override any Payhip default styles that might interfere */
-.payhip-buy-button {
-    box-sizing: border-box !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-}
-
-/* Mobile responsive adjustments for Payhip buttons */
-@media (max-width: 768px) {
-    .album-player a.payhip-buy-button {
-        padding: 0.7rem 0 !important;
-        font-size: 0.75rem !important;
-        margin: 0.8rem 0 !important;
-    }
-}
-
-/* Banner styling */
-.banner-container {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto 3rem;
-    padding: 0 1rem;
-    overflow: hidden;
-}
-
-.banner-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.3s ease;
-    transform: translateY(10px);
-}
-
-.banner-image.loaded {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Mobile responsive improvements */
-@media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        min-height: 100vh;
-    }
-    
-    .banner-container {
-        padding: 0;
-        margin-bottom: 2rem;
-    }
-    
-    .banner-image {
-        border-radius: 4px;
-    }
-    
-    .logo {
-        font-size: 2rem;
-        margin-bottom: 2rem;
-        letter-spacing: 0.3rem;
-        text-align: center;
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-        display: block;
-    }
