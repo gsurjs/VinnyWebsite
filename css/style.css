@@ -960,9 +960,8 @@ audio.loading {
     }
 }
 
-/* Gumroad buttons */
-/* Stronger selector to override Gumroad's default styles */
-.album-player a.gumroad-button {
+/* Payhip buttons - replaces the Gumroad button styles */
+.album-player a.payhip-buy-button {
     background-color: rgba(255, 255, 255, 0.05) !important;
     color: white !important;
     border: 1px solid rgba(255, 255, 255, 0.3) !important;
@@ -981,13 +980,41 @@ audio.loading {
     position: relative !important;
     line-height: normal !important;
     overflow: visible !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
 }
 
-.gumroad-button:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
-    transform: translateY(-2px);
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+.album-player a.payhip-buy-button:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    transform: translateY(-2px) !important;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5) !important;
+    color: white !important;
+}
+
+/* Ensure the span inside the button inherits the styling */
+.album-player a.payhip-buy-button span {
+    color: inherit !important;
+    font-family: inherit !important;
+    font-size: inherit !important;
+    text-transform: inherit !important;
+    letter-spacing: inherit !important;
+}
+
+/* Override any Payhip default styles that might interfere */
+.payhip-buy-button {
+    box-sizing: border-box !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+}
+
+/* Mobile responsive adjustments for Payhip buttons */
+@media (max-width: 768px) {
+    .album-player a.payhip-buy-button {
+        padding: 0.7rem 0 !important;
+        font-size: 0.75rem !important;
+        margin: 0.8rem 0 !important;
+    }
 }
 
 /* Banner styling */
