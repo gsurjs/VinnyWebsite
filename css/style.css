@@ -126,25 +126,25 @@ body {
     margin-top: 2rem;
 }
 
-/* Music page */
+/* Music page - Fixed centering */
 .music-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 3rem;
     width: 100%;
     padding: 0 2rem;
-    justify-content: center !important; /* Center the grid items */
-    justify-items: center !important; /* Center individual items */
-    margin: 0 auto !important; /* Center the container */
-    max-width: 900px !important; /* Limit max width to prevent stretching */
+    margin: 0 auto;
+    max-width: 900px;
 }
 
-
-.music-container .album {
-    width: 100%;
-    max-width: 280px; /* Match the minmax value */
+.album {
+    display: flex;
+    flex-direction: column;
     gap: 1.5rem;
     transition: transform 0.3s ease;
+    width: 280px; /* Fixed width instead of max-width */
+    flex-shrink: 0; /* Prevent shrinking */
 }
 
 .album:hover {
@@ -159,10 +159,6 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     transition: transform 0.3s ease;
     background-color: #111; /* Fallback background */
-}
-
-.album:hover .album-cover {
-    transform: scale(1.02);
 }
 
 .album-title {
@@ -943,18 +939,6 @@ audio.loading {
     opacity: 0.6;
 }
 
-/* Center the music container */
-.music-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 3rem;
-    width: 100%;
-    padding: 0 2rem;
-    justify-content: center !important; /* Center the grid itself */
-    justify-items: center !important; /* Center individual items */
-    margin: 0 auto; /* Center the container */
-    max-width: 900px; /* Set a max-width to ensure it doesn't get too wide */
-}
 
 /* For single album, ensure it's centered */
 .music-container .album {
@@ -972,7 +956,12 @@ audio.loading {
         justify-content: center !important;
         justify-items: center !important;
     }
-    
+
+    .album {
+        width: 100%;
+        max-width: 280px;
+    }
+
     .album-player a.payhip-buy-button {
         padding: 0.7rem 0 !important;
         font-size: 0.75rem !important;
