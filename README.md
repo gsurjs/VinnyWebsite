@@ -2,7 +2,7 @@
 
 A clean, minimalist website for Vinny Virtuoso to display his media, art, and tour info.
 
-[Website Link](https://vinny-virtuoso.vercel.app/)
+[Website Link](https://v1rtuoso.com/)
 
 ## Overview
 
