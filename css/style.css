@@ -1136,7 +1136,6 @@ html, body {
 }
 
 /* Hide video when not on home page */
-.page-content:not(.active) .home-video-section,
 .page-content:not(#home) .home-video-section {
     display: none;
 }
