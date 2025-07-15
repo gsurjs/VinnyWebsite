@@ -1,6 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
+/* EMERGENCY CSS FIX - Add this at the very top of style.css */
+#videos, #contact {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: red !important;
+    min-height: 200px !important;
+    position: relative !important;
+    z-index: 99999 !important;
+}
+
+#videos.page-content.active, #contact.page-content.active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
 /* RESET & BASE STYLES */
 * {
     margin: 0;
