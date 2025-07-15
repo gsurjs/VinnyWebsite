@@ -27,10 +27,6 @@ const MUSIC_CONFIG = {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    function checkPageExists(pageId) {
-    return document.getElementById(pageId) !== null;
-    }
-
     // UPDATE SOCIAL LINKS
     updateSocialLinks();
     
@@ -49,55 +45,62 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to show specific page
     function showPage(pageId) {
-
-        // Check if the page exists before showing it
-        if (!checkPageExists(pageId)) {
-            pageId = 'home'; // Default to home if the requested page doesn't exist
+        console.log('Attempting to show page:', pageId);
+        
+        // Check if the page exists
+        const targetPage = document.getElementById(pageId);
+        if (!targetPage) {
+            console.log('Page not found, defaulting to home');
+            pageId = 'home';
         }
         
         // Update active navigation item
         navItems.forEach(navItem => {
+            navItem.classList.remove('active-nav');
             if (navItem.getAttribute('data-page') === pageId) {
                 navItem.classList.add('active-nav');
-            } else {
-                navItem.classList.remove('active-nav');
             }
         });
         
         // Hide all pages
         pages.forEach(page => {
             page.classList.remove('active');
+            console.log('Hiding page:', page.id);
         });
         
         // Show selected page
-        const targetPage = document.getElementById(pageId);
-        if (targetPage) {
-            targetPage.classList.add('active');
+        const pageToShow = document.getElementById(pageId);
+        if (pageToShow) {
+            pageToShow.classList.add('active');
+            console.log('Showing page:', pageId);
+        } else {
+            // Fallback to home
+            const homePage = document.getElementById('home');
+            if (homePage) {
+                homePage.classList.add('active');
+                console.log('Fallback: Showing home page');
+            }
         }
     }
     
     // Check URL hash on load
     const initialHash = window.location.hash.substring(1);
+    console.log('Initial hash:', initialHash);
+    
     if (initialHash && document.getElementById(initialHash)) {
         showPage(initialHash);
     } else {
         showPage('home'); // Default to home if no hash
     }
     
-    // Set initial active nav item
-    const initialPage = initialHash || 'home';
-    navItems.forEach(navItem => {
-        if (navItem.getAttribute('data-page') === initialPage) {
-            navItem.classList.add('active-nav');
-        }
-    });
-    
+    // Add click handlers to navigation items
     navItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
             
             // Get page to show
             const pageId = this.getAttribute('data-page');
+            console.log('Nav clicked for page:', pageId);
             
             // Update URL hash
             window.location.hash = pageId;
@@ -110,8 +113,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle browser back/forward buttons
     window.addEventListener('hashchange', function() {
         const hash = window.location.hash.substring(1);
-        if (hash && document.getElementById(hash)) {
+        console.log('Hash changed to:', hash);
+        if (hash) {
             showPage(hash);
+        } else {
+            showPage('home');
         }
     });
     
@@ -168,6 +174,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Start typing effect after a short delay
     setTimeout(typeWriter, 500);
+
+    // Debug: Log all available pages
+    console.log('Available pages:');
+    pages.forEach(page => {
+        console.log('- Page ID:', page.id);
+    });
 });
 
 function updateSocialLinks() {
