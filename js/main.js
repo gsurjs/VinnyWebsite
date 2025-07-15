@@ -439,3 +439,25 @@ function initializeBannerImage() {
         }
     }
 }
+
+// DEBUGGING CODE - Add this to the very end of main.js
+setTimeout(() => {
+    console.log('=== DEBUGGING INFO ===');
+    console.log('Videos element:', document.getElementById('videos'));
+    console.log('Contact element:', document.getElementById('contact'));
+    console.log('All page-content elements:', document.querySelectorAll('.page-content'));
+    
+    // Force show videos page
+    const videosPage = document.getElementById('videos');
+    if (videosPage) {
+        videosPage.style.display = 'block';
+        videosPage.style.background = 'red';
+        videosPage.style.minHeight = '300px';
+        videosPage.style.position = 'relative';
+        videosPage.style.zIndex = '9999';
+        console.log('Videos page forced visible');
+        console.log('Videos page computed style:', window.getComputedStyle(videosPage).display);
+    } else {
+        console.log('Videos page NOT FOUND');
+    }
+}, 2000);
