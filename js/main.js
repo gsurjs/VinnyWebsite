@@ -439,22 +439,3 @@ function initializeBannerImage() {
         }
     }
 }
-
-// Test function - add this at the very end of main.js
-setTimeout(() => {
-    console.log('=== DEBUGGING INFO ===');
-    console.log('Videos element:', document.getElementById('videos'));
-    console.log('Contact element:', document.getElementById('contact'));
-    console.log('All page-content elements:', document.querySelectorAll('.page-content'));
-    
-    // Force show videos page
-    const videosPage = document.getElementById('videos');
-    if (videosPage) {
-        videosPage.style.display = 'block';
-        videosPage.style.background = 'red';
-        videosPage.style.minHeight = '300px';
-        videosPage.style.position = 'relative';
-        videosPage.style.zIndex = '9999';
-        console.log('Videos page forced visible');
-    }
-}, 2000);
