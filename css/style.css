@@ -149,6 +149,8 @@ div.page-content {
     padding: 3rem 0;
     animation: fadeIn 0.8s ease;
     position: relative;
+    z-index: 1;
+    min-height: 50vh;
     transition: opacity 0.3s ease;
 }
 
@@ -156,6 +158,8 @@ div.page-content.active {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
+    position: relative;
+    z-index: 10;
 }
 
 /* Ensure videos and contact pages are properly styled */
