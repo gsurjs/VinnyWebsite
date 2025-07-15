@@ -1,27 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
-/* FIXED PAGE CONTENT - Replace the emergency CSS with this */
-#videos, #contact {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    position: relative !important;
-    z-index: 10 !important;
-    /* Remove the red background and min-height */
-}
-
-#videos.page-content.active, #contact.page-content.active {
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* Hide pages when not active */
-#videos:not(.active), #contact:not(.active) {
-    display: none !important;
-}
-
 /* RESET & BASE STYLES */
 * {
     margin: 0;
@@ -168,7 +147,6 @@ div.page-content {
     opacity: 0 !important;
     width: 100%;
     padding: 3rem 0;
-    animation: fadeIn 0.8s ease;
     position: relative;
     z-index: 1;
     min-height: 50vh;
@@ -186,6 +164,24 @@ div.page-content.active {
 /* Ensure videos and contact pages are properly styled */
 #videos.page-content.active,
 #contact.page-content.active {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: 10;
+    min-height: 50vh;
+}
+
+/* Ensure page titles are visible */
+#videos .page-title,
+#contact .page-title {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Ensure video sections are visible */
+.video-section {
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
