@@ -18,10 +18,10 @@ const MUSIC_CONFIG = {
             title: 'Song Title 2', 
             url: '/audio/previews/luv-preview.m4a'
         },
-        /*'track3': { 
+        'track3': { 
             title: 'Song Title 3', 
-            url: '/audio/previews/song3-preview.m4a'
-        }*/
+            url: '/audio/previews/wiki-preview.wav'
+        }
     }
 };
 
