@@ -903,6 +903,9 @@ audio::-webkit-media-controls-play-button:hover {
     body {
         background-attachment: scroll;
         background-position: center top;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
     }
     
     .nav {
