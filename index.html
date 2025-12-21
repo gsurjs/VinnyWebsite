@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://payhip.com/embed-page.js" async></script>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-59KXYQST3G"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -20,22 +19,19 @@
 <body>
     <div class="container">
         <h1 class="logo">VIRTUOSO</h1>
-        <!-- Banner Image -->
         <div class="banner-container">
             <img src="/images/albums/vinny-eye.JPG" alt="VIRTUOSO Banner" class="banner-image">
         </div>
         <nav class="nav">
             <a href="#" class="nav-item" data-page="home">home</a>
             <a href="#" class="nav-item" data-page="music">music</a>
-            <!--<a href="#" class="nav-item" data-page="gallery">gallery</a>
-            <a href="#" class="nav-item" data-page="shop">shop</a>-->
             <a href="#" class="nav-item" data-page="videos">visuals</a>
             <a href="#" class="nav-item" data-page="contact">contact</a>
         </nav>
         
-        <!-- Home Page (Landing) -->
         <div class="page-content active" id="home">
             <div class="home-video-section">
+                
                 <div style="width: 100%; margin-bottom: 3rem;">
                     <h2 class="page-title" style="margin-bottom: 1.5rem;">ARS LONGA, VITA BREVIS</h2>
                     
@@ -47,9 +43,10 @@
                         
                         <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="ENTER YOUR EMAIL" required type="email">
                         
+                        <input type="text" name="bot_check" style="display:none !important" tabindex="-1" autocomplete="off">
+                        
                         <button type="submit">SUBSCRIBE</button>
-
-                        </form>
+                    </form>
                 </div>
 
                 <div class="video-container">
@@ -63,48 +60,44 @@
                 </div>
             </div>
 
-            <!-- Social Media Links - MOVED INSIDE HOME PAGE -->
             <div class="social-links">
-                <a href="#" class="social-link" target="_blank" aria-label="Spotify">
+                <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
                     <i class="fab fa-spotify"></i>
                 </a>
-                <a href="#" class="social-link" target="_blank" aria-label="Apple Music">
+                <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Apple Music">
                     <i class="fab fa-apple"></i>
                 </a>
-                <a href="#" class="social-link" target="_blank" aria-label="YouTube">
+                <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                     <i class="fab fa-youtube"></i>
                 </a>
-                <a href="#" class="social-link" target="_blank" aria-label="Instagram">
+                <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a href="#" class="social-link" target="_blank" aria-label="Twitter">
+                <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                     <i class="fab fa-x"></i>
                 </a>
             </div>
         </div>
         
-        <!-- Music Page -->
         <div class="page-content" id="music">
-            <!-- Music Streaming Platforms -->
             <div class="streaming-platforms">
                 <h2 class="page-title">Stream Music</h2>
                 <div class="platform-grid">
-                    <a href="#" class="platform-link" target="_blank">
+                    <a href="#" class="platform-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-spotify"></i>
                         <span>Spotify</span>
                     </a>
-                    <a href="#" class="platform-link" target="_blank">
+                    <a href="#" class="platform-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-apple"></i>
                         <span>Apple Music</span>
                     </a>
-                    <a href="#" class="platform-link" target="_blank">
+                    <a href="#" class="platform-link" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-youtube"></i>
                         <span>YouTube Music</span>
                     </a>
                 </div>
             </div>
             
-            <!-- Latest Releases Section -->
             <div class="releases-section">
                 <h2 class="page-title">Download Music</h2>
                 <div class="music-container">
@@ -119,30 +112,10 @@
                             </audio>
                             <div class="preview-label">30 second preview</div>
                             <div class="loading-indicator" style="display: none; text-align: center; font-size: 0.8rem; margin-top: 0.3rem; font-family: 'Share Tech Mono', monospace; color: rgba(255, 255, 255, 0.6);">Loading...</div>
-                            <a href="https://payhip.com/b/TlArG" target="_blank" class="payhip-buy-button" data-theme="green" data-product="TlArG">GET FULL TRACK</a>
+                            <a href="https://payhip.com/b/TlArG" target="_blank" rel="noopener noreferrer" class="payhip-buy-button" data-theme="green" data-product="TlArG">GET FULL TRACK</a>
                         </div>
                     </div>
-                    <!--<div class="album">
-                        <img src="/images/albums/a-love-supreme.jpg" alt="A Love Supreme Album Cover" class="album-cover">
-                        <div class="album-title">A Love Supreme</div>
-                    </div>-->
                     
-                    <!--<div class="album">
-                        <img src="/images/albums/flirting-with-myself-cover.jpg" alt="Flirting With Myself Cover" class="album-cover">
-                        <div class="album-title">LUV</div>
-                        <div class="album-player">
-                            <audio controls preload="metadata">
-                                <source src="" data-track-id="track2" type="audio/mp4">
-                                <source src="" data-track-id="track2" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                            <div class="preview-label">30 second preview</div>
-                            <div class="loading-indicator" style="display: none; text-align: center; font-size: 0.8rem; margin-top: 0.3rem; font-family: 'Share Tech Mono', monospace; color: rgba(255, 255, 255, 0.6);">Loading...</div>
-                            <a class="gumroad-button" href="https://virtuosovinnie.gumroad.com/l/digitalDownloads">
-                            <span style="display: block; text-align: center; width: 100%;">Buy Full Track</span>
-                            </a>
-                        </div>
-                    </div>-->
                     <div class="album">
                         <img src="/images/albums/two_for_15.jpg" alt="2 for 15 Album Cover" class="album-cover">
                         <div class="album-title">RED LIGHT DISTRICT</div>
@@ -159,55 +132,11 @@
             </div>
         </div>
         
-        <!-- Gallery Page -->
-        <!--<div class="page-content" id="gallery">
-            <div class="gallery-container">
-                <img src="/images/gallery/gallery1.jpg" alt="Gallery Image 1" class="gallery-item">
-                <img src="/images/gallery/gallery2.jpg" alt="Gallery Image 2" class="gallery-item">
-                <img src="/images/gallery/gallery3.jpg" alt="Gallery Image 3" class="gallery-item">
-                <img src="/images/gallery/gallery4.jpg" alt="Gallery Image 4" class="gallery-item">
-                <img src="/images/gallery/gallery5.jpg" alt="Gallery Image 5" class="gallery-item">
-                <img src="/images/gallery/gallery6.jpg" alt="Gallery Image 6" class="gallery-item">
-            </div>
-        </div>-->
-        
-        <!-- Shop Page -->
-        <!--<div class="page-content" id="shop">
-            <div class="shop-container">
-                <div class="product">
-                    <img src="/images/products/product1.jpg" alt="Product 1" class="product-image">
-                    <div class="product-name">Product Name 1</div>
-                    <div class="product-price">$XX.XX</div>
-                </div>
-                
-                <div class="product">
-                    <img src="/images/products/product2.jpg" alt="Product 2" class="product-image">
-                    <div class="product-name">Product Name 2</div>
-                    <div class="product-price">$XX.XX</div>
-                </div>
-                
-                <div class="product">
-                    <img src="/images/products/product3.jpg" alt="Product 3" class="product-image">
-                    <div class="product-name">Product Name 3</div>
-                    <div class="product-price">$XX.XX</div>
-                </div>
-                
-                <div class="product">
-                    <img src="/images/products/product4.jpg" alt="Product 4" class="product-image">
-                    <div class="product-name">Product Name 4</div>
-                    <div class="product-price">$XX.XX</div>
-                </div>
-            </div>
-        </div>-->
-
-        <!-- Videos Page -->
         <div class="page-content" id="videos">
             <h2 class="page-title">Latest Visual</h2>
             
-            <!-- YouTube Video Section -->
             <div class="video-section">
                 <div class="video-container">
-                    <!-- Replace YOUR_VIDEO_ID with your actual YouTube video ID -->
                     <iframe 
                         src="https://www.youtube.com/embed/XJw0m6I25HM?rel=0&modestbranding=1&showinfo=0" 
                         title="VIRTUOSO - Latest Visual"
@@ -217,12 +146,10 @@
                     </iframe>
                 </div>
                 
-                <!-- Video Info -->
                 <div class="video-info">
                     <h3 class="video-title">Coast</h3>
-                    <!-- Links to more videos -->
                     <div class="video-links">
-                        <a href="https://www.youtube.com/watch?v=U08ImZNY3ws&list=PLFAratjvMtFL8jqFFsW0Dcnx44IE5IkOD" target="_blank" class="video-link">
+                        <a href="https://www.youtube.com/watch?v=U08ImZNY3ws&list=PLFAratjvMtFL8jqFFsW0Dcnx44IE5IkOD" target="_blank" rel="noopener noreferrer" class="video-link">
                             <i class="fab fa-youtube"></i>
                             <span>Watch More Visuals</span>
                         </a>
@@ -231,7 +158,6 @@
             </div>
         </div>
         
-        <!-- Contact Page -->
         <div class="page-content" id="contact">
             <h2 class="page-title">Get In Touch</h2>
 
@@ -246,17 +172,16 @@
                 <button type="submit">SEND MESSAGE</button>
             </form>
             
-            <!-- Additional Contact Info -->
             <div class="contact-info">
                 <h3>Socials</h3>
                 <div class="social-links">
-                    <a href="#" class="social-link" target="_blank" aria-label="Instagram">
+                    <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="social-link" target="_blank" aria-label="Twitter">
+                    <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                         <i class="fab fa-x"></i>
                     </a>
-                    <a href="#" class="social-link" target="_blank" aria-label="YouTube">
+                    <a href="#" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
