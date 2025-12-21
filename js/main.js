@@ -7,7 +7,7 @@ const SOCIAL_LINKS = {
     twitter: "https://x.com/vinnyvirtuoso",
 };
 
-// Music preview configuration - using local preview files
+// Music preview configuration
 const MUSIC_CONFIG = {
     tracks: {
         'track1': { 
@@ -27,17 +27,25 @@ const MUSIC_CONFIG = {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-
-    // --- HANDLES NEWSLETTER SUBMISSION ---
+    // --- HANDLES NEWSLETTER SUBMISSION WITH SECURITY CHECK ---
     const newsletterForm = document.querySelector('form[action*="kit.com"]');
 
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            const formData = new FormData(this);
+            
+            // SECURITY: HONEYPOT CHECK
+            // If the hidden 'bot_check' field has any value, it's a bot.
+            // We simulate success but do not send the data.
+            if (formData.get('bot_check')) {
+                console.log("Bot detected. Submission blocked.");
+                return; 
+            }
+            
             const button = this.querySelector('button');
             const originalText = button.innerText;
-            const formData = new FormData(this);
             
             // Visual Feedback
             button.innerText = "JOINING...";
@@ -55,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (response.ok) {
                     // Success State
-                    button.innerText = "WELCOME TO THE CORE";
+                    button.innerText = "WELCOME TO THE FAMILY";
                     button.style.borderColor = "#00ff00"; 
                     button.style.color = "#00ff00";
                     button.style.textShadow = "0 0 10px #00ff00";
@@ -87,9 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     // ------------------------------------------
 
-
     function checkPageExists(pageId) {
-    return document.getElementById(pageId) !== null;
+        return document.getElementById(pageId) !== null;
     }
 
     // UPDATE SOCIAL LINKS
@@ -110,13 +117,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Function to show specific page
     function showPage(pageId) {
-
-        // Check if the page exists before showing it
         if (!checkPageExists(pageId)) {
-            pageId = 'home'; // Default to home if the requested page doesn't exist
+            pageId = 'home';
         }
         
-        // Update active navigation item
         navItems.forEach(navItem => {
             if (navItem.getAttribute('data-page') === pageId) {
                 navItem.classList.add('active-nav');
@@ -125,12 +129,10 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Hide all pages
         pages.forEach(page => {
             page.classList.remove('active');
         });
         
-        // Show selected page
         const targetPage = document.getElementById(pageId);
         if (targetPage) {
             targetPage.classList.add('active');
@@ -142,10 +144,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (initialHash && document.getElementById(initialHash)) {
         showPage(initialHash);
     } else {
-        showPage('home'); // Default to home if no hash
+        showPage('home');
     }
     
-    // Set initial active nav item
     const initialPage = initialHash || 'home';
     navItems.forEach(navItem => {
         if (navItem.getAttribute('data-page') === initialPage) {
@@ -156,19 +157,12 @@ document.addEventListener('DOMContentLoaded', function() {
     navItems.forEach(item => {
         item.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Get page to show
             const pageId = this.getAttribute('data-page');
-            
-            // Update URL hash
             window.location.hash = pageId;
-            
-            // Show the page
             showPage(pageId);
         });
     });
     
-    // Handle browser back/forward buttons
     window.addEventListener('hashchange', function() {
         const hash = window.location.hash.substring(1);
         if (hash && document.getElementById(hash)) {
@@ -176,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Add subtle hover effects
     const products = document.querySelectorAll('.product');
     const albums = document.querySelectorAll('.album');
     const galleryItems = document.querySelectorAll('.gallery-item');
@@ -194,18 +187,13 @@ document.addEventListener('DOMContentLoaded', function() {
     addHoverEffect(galleryItems);
     
     // Form submission
-    const contactForm = document.querySelector('.contact-form');
+    const contactForm = document.querySelector('.contact-form:not([action*="kit.com"])');
     if (contactForm) {
-        // Check if the form has a Formspree action
         if (contactForm.action && contactForm.action.includes('formspree.io')) {
-            // If using Formspree, don't prevent default submission
             contactForm.addEventListener('submit', function() {
-                // You can still do something here before the form submits, if needed
                 console.log('Submitting form to Formspree...');
-                // But we won't call preventDefault()
             });
         } else {
-            // Original fallback code for non-Formspree forms
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Either fake email or submission error!');
@@ -227,16 +215,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Start typing effect after a short delay
     setTimeout(typeWriter, 500);
 });
 
 function updateSocialLinks() {
-    // Update home page social links
     const homeSocialLinks = document.querySelectorAll('#home .social-link');
     const contactSocialLinks = document.querySelectorAll('#contact .social-link');
     
-    // Home page links mapping
     const homeLinksMap = {
         'Spotify': SOCIAL_LINKS.spotify,
         'Apple Music': SOCIAL_LINKS.appleMusic,
@@ -245,14 +230,12 @@ function updateSocialLinks() {
         'Twitter': SOCIAL_LINKS.twitter,
     };
     
-    // Contact page links mapping
     const contactLinksMap = {
         'Instagram': SOCIAL_LINKS.instagram,
         'Twitter': SOCIAL_LINKS.twitter,
         'YouTube': SOCIAL_LINKS.youtube,
     };
     
-    // Update home page links
     homeSocialLinks.forEach(link => {
         const label = link.getAttribute('aria-label');
         if (homeLinksMap[label] && homeLinksMap[label] !== '#') {
@@ -260,7 +243,6 @@ function updateSocialLinks() {
         }
     });
     
-    // Update contact page links
     contactSocialLinks.forEach(link => {
         const label = link.getAttribute('aria-label');
         if (contactLinksMap[label] && contactLinksMap[label] !== '#') {
@@ -268,7 +250,6 @@ function updateSocialLinks() {
         }
     });
     
-    // Update music platform links
     const platformLinks = document.querySelectorAll('.platform-link');
     const platformMap = {
         'Spotify': SOCIAL_LINKS.spotify,
@@ -287,7 +268,6 @@ function updateSocialLinks() {
     });
 }
 
-// Keep track of currently playing audio element
 let currentlyPlaying = null;
 
 function initializeMusicPreviews() {
@@ -299,35 +279,25 @@ function initializeMusicPreviews() {
         
         if (trackId && MUSIC_CONFIG.tracks[trackId]) {
             const trackInfo = MUSIC_CONFIG.tracks[trackId];
-            
-            // Set the source URL for all source elements
             sources.forEach(source => {
                 source.src = trackInfo.url;
             });
             
-            // Force the audio element to load the new sources
             audio.load();
 
-            // Add play event to pause other audio elements
             audio.addEventListener('play', function() {
-                // Pause any currently playing audio that's not this one
                 if (currentlyPlaying && currentlyPlaying !== audio) {
                     currentlyPlaying.pause();
                 }
-                // Set this as the currently playing audio
                 currentlyPlaying = audio;
             });
             
-            // Add click handler to ensure first click works
             const audioContainer = audio.closest('.album-player');
             if (audioContainer) {
                 audioContainer.addEventListener('click', function(e) {
-                    // Only handle clicks on the player itself, not child elements
                     if (e.target === audio || audio.contains(e.target)) {
-                        // If audio is not ready, load it
                         if (audio.readyState === 0) {
                             audio.load();
-                            // Small timeout to let browser process
                             setTimeout(() => {
                                 audio.play().catch(err => {
                                     console.error('Error playing audio:', err);
@@ -335,18 +305,14 @@ function initializeMusicPreviews() {
                             }, 50);
                         }
                     }
-                }, true); // Use capture phase to get events first
+                }, true);
             }
             
-            // Add error handling
             audio.addEventListener('error', function(e) {
                 console.error(`Error loading audio for track ${trackId}:`, e);
-                
-                // Try to reload on error
                 audio.load();
             });
             
-            // Add canplay listener to log when audio is ready
             audio.addEventListener('canplay', function() {
                 console.log(`Audio track ${trackId} is ready to play`);
             });
@@ -366,35 +332,27 @@ function updateAudioLoadingStates() {
         const loadingIndicator = container.querySelector('.loading-indicator');
         if (!loadingIndicator) return;
         
-        // Show loading indicator initially
         loadingIndicator.style.display = 'block';
         
-        // Hide loading indicator when metadata is loaded
         audio.addEventListener('loadedmetadata', function() {
             loadingIndicator.style.display = 'none';
         });
         
-        // Show loading indicator when waiting for data
         audio.addEventListener('waiting', function() {
             loadingIndicator.style.display = 'block';
         });
         
-        // Hide loading indicator when can play
         audio.addEventListener('canplay', function() {
             loadingIndicator.style.display = 'none';
         });
         
-        // Hide loading indicator when playing
         audio.addEventListener('playing', function() {
             loadingIndicator.style.display = 'none';
         });
         
-        // Show loading indicator on error and retry
         audio.addEventListener('error', function() {
             loadingIndicator.textContent = 'Error loading audio. Retrying...';
             loadingIndicator.style.display = 'block';
-            
-            // Try to reload after a short delay
             setTimeout(() => {
                 audio.load();
             }, 1000);
@@ -403,31 +361,37 @@ function updateAudioLoadingStates() {
 }
 
 function initializeImageGallery() {
-    // Add click handlers to gallery images for lightbox effect
     const galleryItems = document.querySelectorAll('.gallery-item');
     
     galleryItems.forEach(item => {
         item.addEventListener('click', function() {
-            // Create lightbox
+            // SECURITY UPDATE: Prevent XSS by building elements safely instead of innerHTML
             const lightbox = document.createElement('div');
             lightbox.className = 'lightbox';
-            lightbox.innerHTML = `
-                <div class="lightbox-content">
-                    <span class="lightbox-close">&times;</span>
-                    <img src="${this.src}" alt="${this.alt}">
-                </div>
-            `;
+            
+            const content = document.createElement('div');
+            content.className = 'lightbox-content';
+            
+            const closeBtn = document.createElement('span');
+            closeBtn.className = 'lightbox-close';
+            closeBtn.textContent = '×';
+            
+            const img = document.createElement('img');
+            img.src = this.src;
+            img.alt = this.alt;
+            
+            content.appendChild(closeBtn);
+            content.appendChild(img);
+            lightbox.appendChild(content);
             
             document.body.appendChild(lightbox);
             
-            // Add close functionality
             lightbox.addEventListener('click', function(e) {
                 if (e.target === lightbox || e.target.className === 'lightbox-close') {
                     lightbox.remove();
                 }
             });
             
-            // Close on escape key
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape') {
                     lightbox.remove();
@@ -436,33 +400,23 @@ function initializeImageGallery() {
         });
     });
     
-    // Handle image loading and errors
     const images = document.querySelectorAll('img');
     images.forEach(img => {
-        // Add error handling
         img.addEventListener('error', function() {
             console.error(`Failed to load image: ${this.src}`);
             this.classList.add('error');
-            
-            // For album covers, show the alt text
-            if (this.classList.contains('album-cover')) {
-                // Keep the original alt text visible
-            }
         });
         
-        // Add loaded class when image loads successfully
         img.addEventListener('load', function() {
             this.classList.add('loaded');
         });
     });
     
-    // Add lazy loading for images
     if ('IntersectionObserver' in window) {
         const imageObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const img = entry.target;
-                    // Only reload if it hasn't been loaded yet
                     if (!img.classList.contains('loaded') && !img.classList.contains('error')) {
                         img.src = img.src;
                     }
@@ -479,22 +433,17 @@ function initializeBannerImage() {
     const bannerImage = document.querySelector('.banner-image');
 
     if (bannerImage) {
-        // Add loading handler
         bannerImage.addEventListener('load', function() {
             this.classList.add('loaded');
         });
         
-        // Add error handler
         bannerImage.addEventListener('error', function() {
             console.error("Error loading banner image");
-            
-            // If error, add a fallback background color
             this.style.height = '180px';
             this.style.backgroundColor = '#111';
             this.style.opacity = '1';
         });
         
-        // If image is already cached and loaded instantly
         if (bannerImage.complete) {
             bannerImage.classList.add('loaded');
         }
