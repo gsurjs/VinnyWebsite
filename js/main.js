@@ -27,6 +27,67 @@ const MUSIC_CONFIG = {
 
 document.addEventListener('DOMContentLoaded', function() {
 
+
+    // --- HANDLES NEWSLETTER SUBMISSION ---
+    const newsletterForm = document.querySelector('form[action*="kit.com"]');
+
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('button');
+            const originalText = button.innerText;
+            const formData = new FormData(this);
+            
+            // Visual Feedback
+            button.innerText = "JOINING...";
+            button.style.opacity = "0.7";
+            button.disabled = true;
+            
+            try {
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success State
+                    button.innerText = "WELCOME TO THE CORE";
+                    button.style.borderColor = "#00ff00"; 
+                    button.style.color = "#00ff00";
+                    button.style.textShadow = "0 0 10px #00ff00";
+                    this.reset();
+                    
+                    setTimeout(() => {
+                        button.innerText = originalText;
+                        button.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                        button.style.color = "white";
+                        button.style.opacity = "1";
+                        button.style.textShadow = "none";
+                        button.disabled = false;
+                    }, 4000);
+                } else {
+                    throw new Error('Subscription failed');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                button.innerText = "ERROR - TRY AGAIN";
+                button.style.borderColor = "red";
+                button.disabled = false;
+                
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.style.borderColor = "rgba(255, 255, 255, 0.3)";
+                }, 3000);
+            }
+        });
+    }
+    // ------------------------------------------
+
+
     function checkPageExists(pageId) {
     return document.getElementById(pageId) !== null;
     }
