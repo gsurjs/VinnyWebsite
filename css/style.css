@@ -83,6 +83,15 @@ body {
     animation: glitch 0.5s infinite;
 }
 
+.logo, .banner-image {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.logo:hover, .banner-image:hover {
+    opacity:0.8;
+}
+
 /* BANNER */
 .banner-container {
     width: 100%;

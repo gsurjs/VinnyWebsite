@@ -99,6 +99,21 @@ document.addEventListener('DOMContentLoaded', function() {
         return document.getElementById(pageId) !== null;
     }
 
+    const homeTriggers = document.querySelectorAll('.logo, .banner-image');
+    
+    homeTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function() {
+            // Update the URL hash to #home
+            // This triggers the existing 'hashchange' listener which handles the page switch
+            window.location.hash = 'home';
+            
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    });
+
+
+
     // UPDATE SOCIAL LINKS
     updateSocialLinks();
     
