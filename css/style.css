@@ -32,7 +32,7 @@ body::before {
 }
 
 body {
-    background-color: transparent;
+    background-color: #000000;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
