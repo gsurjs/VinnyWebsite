@@ -348,6 +348,43 @@ div.page-content.active {
     animation: pulse 1.5s infinite;
 }
 
+/* HOME PAGE ALBUM ARTWORK */
+.home-album-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.home-album-display {
+    display: block;
+    width: 100%;
+    max-width: 500px; /* Limits size on Desktop so it's not too huge */
+    position: relative;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.home-album-display img {
+    width: 100%;
+    height: auto; /* Maintains square aspect ratio */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+    display: block;
+}
+
+/* Hover Effects */
+.home-album-display:hover {
+    transform: translateY(-5px);
+}
+
+.home-album-display:hover img {
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.15); /* Adds a glow */
+}
+
 /* PAYHIP BUTTONS */
 .album-player a.payhip-buy-button {
     background-color: rgba(255, 255, 255, 0.05) !important;
@@ -1070,6 +1107,15 @@ audio::-webkit-media-controls-play-button:hover {
     
     .gallery-item {
         aspect-ratio: 4/3;
+    }
+
+    /* Mobile Home Album Wrapper */
+    .home-album-wrapper {
+        margin-bottom: 2rem;
+    }
+    
+    .home-album-display {
+        max-width: 100%; /* Full width on mobile */
     }
     
     /* Mobile shop */
