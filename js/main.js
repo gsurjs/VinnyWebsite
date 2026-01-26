@@ -42,6 +42,10 @@ const MUSIC_CONFIG = {
             title: 'SUMMER\'S OVER',
             url: '/audio/previews/wake-bake-preview.m4a'
         },
+        'track9': {
+            title: 'SPACECOWBOY',
+            url: '/audio/previews/spacecowboy-preview.m4a'
+        },
     }
 };
 
