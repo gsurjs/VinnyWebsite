@@ -30,6 +30,10 @@ const MUSIC_CONFIG = {
             title: 'THE WORLD IS YOURS',
             url: '/audio/previews/party-preview.m4a'
         },
+        'track 6': {
+            title: 'NO DAYS OFF',
+            url: '/audio/previews/no-days-off-preview.m4a'
+        },
     }
 };
 
