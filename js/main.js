@@ -26,6 +26,10 @@ const MUSIC_CONFIG = {
             title: 'MOTH',
             url: '/audio/previews/moth-preview.m4a'
         },
+        'track 5': {
+            title: 'THE WORLD IS YOURS',
+            url: '/audio/previews/party-preview.m4a'
+        },
     }
 };
 
