@@ -38,6 +38,10 @@ const MUSIC_CONFIG = {
             title: 'AINT SHIT',
             url: '/audio/previews/aint-shit-preview.m4a'
         },
+        'track8': {
+            title: 'SUMMER\'S OVER',
+            url: '/audio/previews/wake-bake-preview.m4a'
+        },
     }
 };
 
