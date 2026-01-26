@@ -15,13 +15,17 @@ const MUSIC_CONFIG = {
             url: '/audio/previews/thank-you-preview.m4a'
         },
         'track2': { 
-            title: 'Song Title 2', 
+            title: 'A LOVE SUPREME!', 
             url: '/audio/previews/fbi-murdered-fred-preview.m4a'
         },
         'track3': { 
-            title: 'Song Title 3', 
+            title: 'RED LIGHT DISTRICT', 
             url: '/audio/previews/wiki-preview.wav'
-        }
+        },
+        'track4': {
+            title: 'MOTH',
+            url: '/audio/previews/moth-preview.m4a'
+        },
     }
 };
 
