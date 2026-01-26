@@ -54,6 +54,10 @@ const MUSIC_CONFIG = {
             title: 'WKND FM',
             url: '/audio/previews/wknd-fm-preview.m4a'
         },
+        'track12': {
+            title: 'FROM MUDD',
+            url: '/audio/previews/from-mudd-preview.m4a'
+        },
     }
 };
 
