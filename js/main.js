@@ -26,11 +26,11 @@ const MUSIC_CONFIG = {
             title: 'MOTH',
             url: '/audio/previews/moth-preview.m4a'
         },
-        'track 5': {
+        'track5': {
             title: 'THE WORLD IS YOURS',
             url: '/audio/previews/party-preview.m4a'
         },
-        'track 6': {
+        'track6': {
             title: 'NO DAYS OFF',
             url: '/audio/previews/no-days-off-preview.m4a'
         },
