@@ -50,6 +50,10 @@ const MUSIC_CONFIG = {
             title: 'IMAGES',
             url: '/audio/previews/images-preview.m4a'
         },
+        'track11': {
+            title: 'WKND FM',
+            url: '/audio/previews/wknd-fm-preview.m4a'
+        },
     }
 };
 
