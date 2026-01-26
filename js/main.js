@@ -1,7 +1,8 @@
 // Configuration for social media links
 const SOCIAL_LINKS = {
     spotify: "https://open.spotify.com/artist/3hXX72sGg8iOTsOkwV1vrj",  
-    appleMusic: "https://music.apple.com/us/artist/vinny-virtuoso/1867422882", 
+    appleMusic: "https://music.apple.com/us/artist/vinny-virtuoso/1867422882",
+    bandcamp: "https://vinnyvirtuoso.bandcamp.com/", 
     youtube: "https://www.youtube.com/@vinnyvirtuoso", 
     instagram: "https://instagram.com/vinnyvirtuoso",  
     twitter: "https://x.com/vinnyvirtuoso",
@@ -284,6 +285,7 @@ function updateSocialLinks() {
     const homeLinksMap = {
         'Spotify': SOCIAL_LINKS.spotify,
         'Apple Music': SOCIAL_LINKS.appleMusic,
+        'Bandcamp' : SOCIAL_LINKS.bandcamp,
         'YouTube': SOCIAL_LINKS.youtube,
         'Instagram': SOCIAL_LINKS.instagram,
         'Twitter': SOCIAL_LINKS.twitter,
