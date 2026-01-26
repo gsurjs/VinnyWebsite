@@ -1257,3 +1257,19 @@ audio::-webkit-media-controls-play-button:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* DESKTOP SPECIFIC - Force 3 albums across */
+@media (min-width: 1025px) {
+    .music-container {
+        max-width: 1100px; /* Widened from 900px to fit 3 items */
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 columns */
+        justify-items: center; /* Centers albums in their slots */
+        gap: 2rem;
+    }
+    
+    .album {
+        width: 100%;
+        max-width: 300px; /* Ensures they fill the grid cell nicely */
+    }
+}
