@@ -46,6 +46,10 @@ const MUSIC_CONFIG = {
             title: 'SPACECOWBOY',
             url: '/audio/previews/spacecowboy-preview.m4a'
         },
+        'track10': {
+            title: 'IMAGES',
+            url: '/audio/previews/images-preview.m4a'
+        },
     }
 };
 
