@@ -34,6 +34,10 @@ const MUSIC_CONFIG = {
             title: 'NO DAYS OFF',
             url: '/audio/previews/no-days-off-preview.m4a'
         },
+        'track7': {
+            title: 'AINT SHIT',
+            url: '/audio/previews/aint-shit-preview.m4a'
+        },
     }
 };
 
